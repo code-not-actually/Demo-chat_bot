@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OPA Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="chat-widget" class="closed">
+    <button id="chat-toggle" aria-label="Open chat" title="Open chat">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </button>
+    <div id="chat-window" role="dialog" aria-modal="true" aria-labelledby="chat-header" hidden>
+      <header id="chat-header">
+        <h2>OPA Assistant</h2>
+        <button id="chat-close" aria-label="Close chat">&times;</button>
+      </header>
+      <div id="chat-box" aria-live="polite" aria-atomic="false" role="log"></div>
+      <div id="input-area">
+        <input id="user-input" autocomplete="off" placeholder="Ask something..." />
+        <button id="send-btn">Send</button>
+        <button id="suggestions-close" aria-label="Dismiss suggestions" hidden>&times;</button>
+        <div id="suggestions" hidden></div>
+      </div>
+    </div>
+  </div>
+  <script src="qa-data.js"></script>
+  <script src="chatbot.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
