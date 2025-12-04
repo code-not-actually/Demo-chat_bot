@@ -3,7 +3,7 @@ body {
   font-weight: 400;
   font-size: 100%;
   background: linear-gradient(135deg, #a8d5e2 0%, #d4e9f2 100%);
-  background-image: url('https://raw.githubusercontent.com/code-not-actually/Demo-chat_bot/main/images/Screenshot%20(9).png');
+  background-image: url('https://www.onepercentforamerica.org/wp-content/uploads/2024/01/hero-background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -192,4 +192,3 @@ body {
 #suggestions-close.visible {
   display: block;
 }
-
