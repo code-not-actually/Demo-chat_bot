@@ -2,6 +2,15 @@ body {
   font-family: 'Nunito', sans-serif;
   font-weight: 400;
   font-size: 100%;
+  background: linear-gradient(135deg, #a8d5e2 0%, #d4e9f2 100%);
+  background-image: url('https://github.com/code-not-actually/Demo-chat_bot/tree/main/images/Screenshot (9).png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 #chat-widget {
@@ -147,6 +156,10 @@ body {
   font-size: 14px;
   z-index: 1001;
   user-select: none;
+  display: none;
+}
+
+#suggestions:empty {
   display: none;
 }
 
