@@ -44,7 +44,17 @@ function highlightText(text, query) {
 function appendMessage(text, sender) {
   const div = document.createElement("div");
   div.className = `msg ${sender === "user" ? "user-msg" : "bot-msg"}`;
-  div.innerHTML = text;
+  
+  const label = document.createElement("div");
+  label.className = "msg-label";
+  label.textContent = sender === "user" ? "You" : "OPA Assistant";
+  
+  const content = document.createElement("div");
+  content.className = "msg-content";
+  content.innerHTML = text;
+  
+  div.appendChild(label);
+  div.appendChild(content);
   chatBox.appendChild(div);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
