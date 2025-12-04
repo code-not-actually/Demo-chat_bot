@@ -40,8 +40,9 @@ body {
 }
 
 #chat-toggle img {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 #chat-widget.closed #chat-window {
@@ -69,6 +70,12 @@ body {
   font-weight: bold;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+}
+
+#header-logo {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
 }
 
 #chat-header button {
