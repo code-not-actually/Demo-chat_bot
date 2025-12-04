@@ -25,8 +25,8 @@ body {
   background: #008AA2;
   border-radius: 50%;
   border: none;
-  width: 56px;
-  height: 56px;
+  width: 70px;
+  height: 70px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   display: flex;
@@ -40,8 +40,8 @@ body {
 }
 
 #chat-toggle img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
 }
 
@@ -63,19 +63,23 @@ body {
 #chat-header {
   background: #008AA2;
   color: white;
-  padding: 12px 15px;
+  padding: 8px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  min-height: 50px;
 }
 
 #header-logo {
-  height: 35px;
+  height: 40px;
   width: auto;
+  max-width: calc(100% - 40px);
   object-fit: contain;
+  flex: 1;
+  margin-right: 10px;
 }
 
 #chat-header button {
@@ -97,24 +101,59 @@ body {
   display: flex;
   flex-direction: column;
   word-wrap: break-word;
+  gap: 4px;
 }
 
 .msg {
-  margin: 6px 0;
+  margin: 12px 0;
+  padding: 0;
+  border-radius: 12px;
+  max-width: 80%;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.msg-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  padding: 0 4px;
+}
+
+.msg-content {
   padding: 10px 14px;
   border-radius: 12px;
-  max-width: 75%;
-  white-space: pre-wrap;
+  line-height: 1.5;
 }
 
 .user-msg {
   align-self: flex-end;
+}
+
+.user-msg .msg-label {
+  align-self: flex-end;
+  color: #2f8d46;
+}
+
+.user-msg .msg-content {
   background: #d0f0d0;
   color: #2f8d46;
 }
 
 .bot-msg {
   align-self: flex-start;
+}
+
+.bot-msg .msg-label {
+  align-self: flex-start;
+  color: #162887;
+}
+
+.bot-msg .msg-content {
   background: #162887;
   color: white;
 }
