@@ -24,10 +24,6 @@ chatClose.addEventListener("click", () => {
   hideSuggestions();
 });
 
-suggestionsCloseBtn.addEventListener("click", () => {
-  hideSuggestions();
-});
-
 function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
@@ -80,13 +76,11 @@ function showSuggestions(suggestions, query) {
     suggestionsDiv.appendChild(div);
   });
   suggestionsDiv.style.display = "block";
-  suggestionsCloseBtn.style.display = "block";
 }
 
 function hideSuggestions() {
   suggestionsDiv.innerHTML = "";
   suggestionsDiv.style.display = "none";
-  suggestionsCloseBtn.style.display = "none";
   lastSuggestions = [];
 }
 
@@ -118,6 +112,85 @@ function sendUserMessage(inputOverride = null) {
     appendMessage(answer, "bot");
   }
 }
+
+// Live autocomplete suggestions as user types
+userInput.addEventListener("input", () => {
+  const query = userInput.value.trim();
+  suggestionsDiv.innerHTML = "";
+  
+  if (!query) {
+    hideSuggestions();
+    return;
+  }
+  
+  const normalizedQuery = normalize(query);
+  const questions = Object.keys(QA_DATA);
+  
+  // Score and rank questions
+  const matches = questions.map(question => {
+    const normalizedQ = normalize(question);
+    let score = 0;
+    
+    // Exact match
+    if (normalizedQ === normalizedQuery) score += 100;
+    
+    // Starts with query
+    if (normalizedQ.startsWith(normalizedQuery)) score += 50;
+    
+    // Word overlap
+    const queryWords = normalizedQuery.split(/\s+/);
+    const questionWords = normalizedQ.split(/\s+/);
+    queryWords.forEach(qw => {
+      if (questionWords.some(w => w.includes(qw))) score += 5;
+    });
+    
+    // Keyword matching
+    for (const [keyword, mappedQuestions] of Object.entries(KEYWORD_MAP)) {
+      if (keywordMatched(normalizedQuery, keyword) && mappedQuestions.includes(question)) {
+        score += 20;
+      }
+    }
+    
+    // Fuzzy word similarity
+    queryWords.forEach(qWord => {
+      questionWords.forEach(qstWord => {
+        if (similarityRatio(qWord, qstWord) > 75) score += 3;
+      });
+    });
+    
+    return { question, score };
+  })
+  .filter(item => item.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 10);
+  
+  // Display suggestions
+  if (matches.length > 0) {
+    matches.forEach(match => {
+      const div = document.createElement("div");
+      div.className = "suggestion";
+      div.innerHTML = highlightText(match.question, query);
+      div.onclick = () => {
+        userInput.value = match.question;
+        hideSuggestions();
+        sendUserMessage(match.question);
+      };
+      suggestionsDiv.appendChild(div);
+    });
+    suggestionsDiv.style.display = "block";
+  } else {
+    hideSuggestions();
+  }
+});
+
+// Hide suggestions when clicking outside
+userInput.addEventListener("blur", () => {
+  setTimeout(() => {
+    if (!suggestionsDiv.matches(':hover')) {
+      hideSuggestions();
+    }
+  }, 200);
+});
 
 sendBtn.addEventListener("click", () => sendUserMessage());
 userInput.addEventListener("keypress", (e) => {
