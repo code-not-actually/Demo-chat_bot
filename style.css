@@ -32,6 +32,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+#chat-widget:not(.closed) #chat-toggle {
+  display: none;
 }
 
 #chat-toggle img {
